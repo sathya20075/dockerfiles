@@ -1,0 +1,632 @@
+{
+	"info": {
+		"_postman_id": "3a255a3f-f588-437e-b36e-cc76d78ed5a5",
+		"name": "Prism_OAS_3.0_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NO_AUTH_GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74ed7585-7860-4f30-96bd-4464aad6e653",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products/no_auth/20",
+					"protocol": "http",
+					"host": ["10.98.225.208"],					
+					"port": "4011",
+					"path": [
+						"products",
+						"no_auth",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_PRODUCTS_USER",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2cca32ca-2332-4370-b054-b4aae277572a",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products/no_auth/03",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products",
+						"no_auth",
+						"03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD_PRODUCTS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "03ff5598-70c6-49d8-92c9-71f1ca5846a3",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "gwyYwMTeKK43cwCqjrBODHGCHXHLgy2uMy5Bz9EsIE",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"name\": \"Product_03\",\r\n    \"description\": \"New Product03\",\r\n    \"price\": 10.00,\r\n    \"qty\": 3,\r\n    \"status\": \"Closed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.98.225.208:4011/products",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_PRODUCTS_BY_STATUS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d86f732-679e-4ec2-83ec-25d44fdd1f25",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "vblMf51vz5sBtXpMZ9HdPEDlsipKDZhqvYpcmpoDTy",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products/findByStatus?status=Available",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Available"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_ALL_PRODUCTS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "824a6c88-39d2-41a4-9bac-7d2c61c8caec",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products/no_auth/8",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products",
+						"no_auth",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_PRODUCTS_BY_STATUS_PROXY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "698d2f48-9421-4368-8d0c-f833a61de443",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "Nn3vTCtbqp5jtAYydgDSjSpW4clGb0Ve3i0FleWi96",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products/findByStatus?status=Closed",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Closed"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_PRODUCT_BY_ID_PROXY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ceec4e9-14d4-40b2-a71b-d69313cfa635",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "RMBaZsOLd4CAjrB4KM1UGtWbzS90H8qOsawQZZT1wA",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products/20",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_ALL_PRODUCTS_PROXY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b4d2285-7b61-4ef3-91cd-a12496de0626",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "PxGufV2wp88ZNjQzPvu5rnulolnav6unkY4j9LZFsQ",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_ALL_STORES_NEGATIVE_SCENARIO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95c80f6d-7a6b-4cd3-b3e7-09d290d5e465",
+						"exec": [
+							"pm.test(\"Contract violation: Data type violated in request\", function(){\r",
+							"    pm.response.to.have.header(\"sl-violations\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "PxGufV2wp88ZNjQzPvu5rnulolnav6unkY4j9LZFsQ",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/stores",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD_PRODUCTS_PROXY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f48bf06-4e5c-47c2-9cdb-dbfcedc0e2f2",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "4kU6PhmqhzHD7Ezn5NroALP532Xa4pOTukwSNZNVtW",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"name\": \"Product_31\",\r\n    \"description\": \"New Product31\",\r\n    \"price\": 29.00,\r\n    \"qty\": 29,\r\n    \"status\": \"Closed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.98.225.208:4011/products",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PRODUCT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d84df9c2-290e-413b-8d8c-4997e4992bf0",
+						"exec": [
+							"pm.test(\"No contract violations are present\", function(){\r",
+							"    pm.response.to.not.have.header(\"sl-violations\") \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "vIia6U06jUj09kNCUitmzDoIswFSYgFoCw4SyfptnC",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products/1",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE_PRODUCT_NEGATIVE_NOAUTH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c67be027-a2a4-446d-a406-6bcbe8972742",
+						"exec": [
+							"pm.test(\"Verify 401 Unauthorized is present\", function(){\r",
+							"   pm.response.to.have.status(401)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://10.98.225.208:4011/products/1",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD_STORE",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "3wfWjjC8menoP89mYVqzw5LExIHFoBDyK9gQDYUh8M",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"name\": \"Product_03\",\r\n    \"description\": \"New Product03\",\r\n    \"price\": 10,\r\n    \"qty\": 3    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.98.225.208:4011/stores",
+					"protocol": "http",
+					"host": ["10.98.225.208"],
+					"port": "4011",
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

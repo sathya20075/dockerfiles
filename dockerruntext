@@ -1,0 +1,4 @@
+curl -L https://raw.githack.com/stoplightio/prism/master/install |sh
+docker run -v /tmp:/tmp stoplight/prismtest /bin/sh
+
+docker build . -t stoplight/prismtest

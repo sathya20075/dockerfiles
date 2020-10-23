@@ -1,0 +1,43 @@
+FROM ubuntu:20.04
+
+CMD ["/bin/bash"]
+
+ENV OAS_URL ${OAS_URL}
+
+RUN mkdir -p /spec
+RUN mkdir -p /tmp/spec
+
+
+WORKDIR /spec
+
+RUN apt-get update && apt-get upgrade -y && apt-get autoremove && apt-get autoclean
+
+# Installing curl
+RUN apt-get install curl -y
+
+# Installing prism
+RUN curl -L https://raw.githack.com/stoplightio/prism/master/install | bash
+
+# Installing nodejsv10
+RUN curl -L https://deb.nodesource.com/setup_10.x | bash
+RUN apt-get install -y nodejs
+RUN npm install -g newman
+
+#Installing wget
+RUN apt-get install -y wget
+
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin:/spec:$PATH
+
+RUN chmod 755 /usr/local/bin/prism
+RUN chmod 755 /tmp/spec
+
+RUN cp -r /*.yml /tmp/spec/
+RUN cp -r /*.json /tmp/spec/
+
+EXPOSE 4010
+
+COPY start.sh /
+
+RUN chmod +x /start.sh
+
+ENTRYPOINT /start.sh

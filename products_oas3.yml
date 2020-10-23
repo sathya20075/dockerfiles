@@ -1,0 +1,413 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'Products API'
+  description: 'An API that allows user to obtain products details'
+  termsOfService: ''
+  contact:
+     name: 'test'
+     url:  'products.com'
+     email: 'products@productshome.com'
+  license: 
+     name: 'test license'
+     url:  'test.com'
+
+servers:
+   - url: https://localhost:5000/v1
+     description: TestServer
+     
+   - url: https://devserver:5000/v1
+     description: devServer
+     
+tags:
+- name: product
+  description: Everything about your Products
+  externalDocs:
+    description: Find out more
+    url: http://test.products.io
+     
+paths:
+   "/products":
+      post:
+         tags:
+         - product
+         summary: Creates a new product in the database
+         description: ''
+         operationId: addProduct
+         requestBody:
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/Product"
+             application/xml:
+               schema: 
+                 $ref: "#/components/schemas/Product"
+           description: adding a new product to database
+           required: true
+         responses:
+           200:
+             description: successful operation             
+           400:
+             description: Invalid Product
+             
+      get:
+          tags:
+          - product
+          summary: Get all products information
+          description: 'Get all products information from the store'
+          operationId: getProducts
+          responses:
+             200:
+               description: successfull pull of products info
+               content: 
+                 application/json:
+                   schema:
+                     type: array
+                     items: 
+                        $ref: '#/components/schemas/Product'
+                       
+                 application/xml:
+                    schema:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Product'                        
+      
+             
+      put:
+         tags:
+         - Product
+         summary: Update an existing product
+         description: ''
+         operationId: updateProduct         
+         requestBody:
+           required: true 
+           content:
+             application/json:
+                schema:
+                  type: object
+                  items:
+                    $ref: '#/components/schemas/Product'
+             application/xml:
+                schema:
+                  type: object
+                  items:
+                    $ref: '#/components/schemas/Product'
+         responses:
+           '400':
+             description: Invalid ID supplied
+           '404':
+             description: Product not found
+           '405':
+             description: Validation exception
+         #security:
+         #- products_auth:
+         # - write:products
+         # - read:product
+         
+   "/stores":
+     get:
+          tags:
+          - store
+          summary: Get all products store information
+          description: 'Get all products information from the store'
+          operationId: getProducts
+          responses:
+             200:
+               description: successfull pull of store info
+               content: 
+                 application/json:
+                   schema:
+                     type: array
+                     items: 
+                        $ref: '#/components/schemas/Store'
+                       
+                 application/xml:
+                    schema:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Store'
+                        
+     post:
+         tags:
+         - store
+         summary: Creates a new store in the database
+         description: ''
+         operationId: addStore
+         requestBody:
+           content:
+             application/json:
+               schema:
+                 $ref: "#/components/schemas/Store"
+             application/xml:
+               schema: 
+                 $ref: "#/components/schemas/Store"
+           description: adding a new store to database
+           required: true
+         responses:
+           200:
+             description: successful operation             
+           400:
+             description: Invalid Store
+         
+           
+   "/products/findByStatus":
+     get:
+      tags:
+      - product
+      summary: Finds Products by status
+      description: Multiple status values can be provided with comma separated strings
+      operationId: findProductsByStatus
+      parameters:
+      - name: status
+        in: query
+        description: Status values that need to be considered for filter
+        required: true
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - Available
+            - Closed
+            - Sold
+            default: Available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Product"
+        '400':
+          description: Invalid status value
+      security:
+      - products_auth:
+        - access:products
+                
+   "/products/no_auth/{productId}":
+    get:
+      tags:
+      - product
+      summary: Find product by ID
+      description: Returns a single product
+      operationId: getProductByIdNoAuth
+      parameters:
+      - name: productId
+        in: path
+        description: ID of product to return
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+              examples:
+                Product:
+                  summary: An example of a Product
+                  value:
+                    id: 20
+                    description: 'example product'
+                    price: 354.40
+                    qty: 30  
+                    status: 'Available'
+                    
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Product not found
+        '500':
+          description: Internal Server Error
+        '418':
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string    
+                    
+   
+           
+   "/products/{productId}":
+    delete:
+         tags:
+         - product
+         summary: Deletes a product
+         description: ''
+         operationId: deleteProduct
+         parameters:         
+         - name: productId
+           in: path
+           description: Product id to delete
+           required: true
+           schema:
+             type: integer
+             format: int32
+         responses:
+           '200':
+             description: Successfully deleted   
+           '400':
+             description: Invalid ID supplied
+           '404':
+             description: Product not found
+         security:
+           - products_auth:
+             - access:products
+    get:
+      tags:
+      - product
+      summary: Find product by ID
+      description: Returns a single product
+      operationId: getProductById
+      parameters:
+      - name: productId
+        in: path
+        description: ID of product to return
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+              examples:
+                Product:
+                  summary: An example of a Product
+                  value:
+                    id: 20
+                    name: 'example product'
+                    description: 'example product'
+                    price: 354.40
+                    qty: 30  
+                    status: 'Available'
+                    
+                    
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Product not found
+        '500':
+          description: Internal Server Error
+        '418':
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+      security:
+        - products_auth:
+          - access:products                       
+      #security:
+      #- api_key: []
+      
+    
+         
+components:
+   securitySchemes:
+    products_auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: http://localhost:5000/oauth/authorize
+          tokenUrl: http://localhost:5000/oauth/token
+          scopes:            
+            access:products: access your products
+   schemas:   
+      Products:
+         description: Model of an array of products info
+         type: array
+         items:
+            $ref: '#/components/schemas/Product'
+            
+      Stores:
+         description: Model of an array of Store info
+         type: array
+         items:
+            $ref: '#/components/schemas/Store'
+      
+      Product:
+         type: object
+         properties:            
+            name:
+               type: string
+               example: "Product1"
+               x-faker: commerce.product
+            description:
+               type: string
+               example: "New Product1"
+               x-faker: lorem.sentence
+            price:
+               type: number
+               format: double
+               example: 365.66
+               x-faker: finance.amount
+            quantity:
+               type: integer
+               format: int32
+               example: 5
+               x-faker: random.number
+            status:
+               type: string
+               example: "Available"
+               x-faker: lorem.word
+               
+      Store:
+         type: object
+         properties:            
+            name:
+               type: string
+               example: "Store1"
+               x-faker: commerce.product
+            description:
+               type: string
+               example: "Store1"
+               x-faker: lorem.sentence
+            price:
+               type: number
+               format: float
+               example: 365
+               x-faker: lorem.sentence
+            quantity:
+               type: integer
+               format: int64
+               example: "5"
+               x-faker: lorem.sentence
+            
